@@ -1,7 +1,8 @@
 name: Android Build and Unit Tests
 on:
-    branches:
-      - main
+  push:
+  branches:
+    - main
 
 jobs:
   build_and_test:
