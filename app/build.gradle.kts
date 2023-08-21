@@ -1,9 +1,8 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    kotlin("kapt")
-    alias(libs.plugins.com.google.dagger.hilt.android)
     id("themealdb.android.application")
     id("themealdb.android.application.compose")
+    id("themealdb.android.hilt")
 }
 
 android {
@@ -45,8 +44,6 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
