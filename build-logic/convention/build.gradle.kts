@@ -28,5 +28,9 @@ gradlePlugin {
             id = "themealdb.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidApplicationCompose") {
+            id = "themealdb.android.application.compose"
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
     }
 }

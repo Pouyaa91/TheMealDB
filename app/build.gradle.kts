@@ -3,6 +3,7 @@ plugins {
     kotlin("kapt")
     alias(libs.plugins.com.google.dagger.hilt.android)
     id("themealdb.android.application")
+    id("themealdb.android.application.compose")
 }
 
 android {
@@ -29,13 +30,6 @@ android {
             )
         }
     }
-
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -44,11 +38,9 @@ android {
 }
 
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
@@ -58,7 +50,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
