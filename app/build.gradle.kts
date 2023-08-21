@@ -1,19 +1,16 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
     kotlin("kapt")
     alias(libs.plugins.com.google.dagger.hilt.android)
-1}
+    id("themealdb.android.application")
+}
 
 android {
     namespace = "com.pouyaa.themealdb"
-    compileSdk = 33
 
     defaultConfig {
         applicationId = "com.pouyaa.themealdb"
-        minSdk = 23
-        targetSdk = 33
+
         versionCode = 1
         versionName = "1.0"
 
@@ -32,13 +29,7 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
     buildFeatures {
         compose = true
     }
