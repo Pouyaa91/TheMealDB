@@ -1,0 +1,16 @@
+{
+  "categories": [
+    {
+      "idCategory": "1",
+      "strCategory": "first category",
+      "strCategoryThumb": "first thumb",
+      "strCategoryDescription": "first description"
+    },
+    {
+      "idCategory": "2",
+      "strCategory": "second category",
+      "strCategoryThumb": "second thumb",
+      "strCategoryDescription": "second description"
+    }
+  ]
+}
