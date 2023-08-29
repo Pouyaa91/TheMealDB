@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TheMealDB"
 include(":app")
+include(":core:network")

@@ -38,5 +38,10 @@ gradlePlugin {
             id = "themealdb.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
         }
+
+        register("androidLibrary") {
+            id = "themealdb.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
     }
 }
