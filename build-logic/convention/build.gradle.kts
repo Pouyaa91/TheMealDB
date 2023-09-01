@@ -43,5 +43,9 @@ gradlePlugin {
             id = "themealdb.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("jvmLibrary") {
+            id = "themealdb.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
     }
 }
