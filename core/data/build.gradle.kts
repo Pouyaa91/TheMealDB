@@ -13,4 +13,6 @@ dependencies {
     implementation(project(":core:model"))
     implementation(libs.core.ktx)
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
 }
