@@ -7,6 +7,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Retrofit
@@ -45,5 +46,10 @@ class CategoriesApiServiceTest {
         assertEquals(result.getOrNull(0)?.name, "first category")
         assertEquals(result.getOrNull(0)?.imageUrl, "first thumb")
         assertEquals(result.getOrNull(0)?.description, "first description")
+    }
+
+    @After
+    fun tearDown() {
+        mockWebServer.shutdown()
     }
 }
