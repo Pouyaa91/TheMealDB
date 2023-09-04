@@ -1,15 +1,14 @@
 package com.pouyaa.themealdb
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.pouyaa.feature.categories.CategoriesScreen
 import com.pouyaa.themealdb.ui.theme.TheMealDBTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,30 +18,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TheMealDBTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    CategoriesScreen(onCategoryClicked = ::onCategoryClicked)
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TheMealDBTheme {
-        Greeting("Android")
+    private fun onCategoryClicked(categoryId: String) {
+        Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_SHORT).show()
     }
+
 }
