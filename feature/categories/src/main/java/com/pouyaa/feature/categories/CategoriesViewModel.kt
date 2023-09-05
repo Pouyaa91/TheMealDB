@@ -17,6 +17,7 @@ class CategoriesViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase
 ) : ViewModel() {
     var uiState by mutableStateOf<UiState>(UiState.Loading)
+        private set
 
     init {
         fetchCategories()
