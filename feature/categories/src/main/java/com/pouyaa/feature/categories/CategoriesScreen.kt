@@ -23,6 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -31,11 +34,19 @@ import coil.compose.rememberAsyncImagePainter
 import com.pouyaa.model.Category
 
 @Composable
-fun CategoriesScreen(
+internal fun CategoriesRoute(
     viewModel: CategoriesViewModel = hiltViewModel(),
     onCategoryClicked: (String) -> Unit
 ) {
-    when (val state = viewModel.uiState) {
+    CategoriesScreen(state = viewModel.uiState, onCategoryClicked = onCategoryClicked)
+}
+
+@Composable
+internal fun CategoriesScreen(
+    state: CategoriesViewModel.UiState,
+    onCategoryClicked: (String) -> Unit
+) {
+    when (state) {
         is CategoriesViewModel.UiState.Loading -> LoadingView()
         is CategoriesViewModel.UiState.Success -> CategoriesList(
             categories = state.data,
@@ -45,14 +56,18 @@ fun CategoriesScreen(
 }
 
 @Composable
-fun LoadingView(modifier: Modifier = Modifier) {
-    Box(modifier = modifier, contentAlignment = Alignment.Center) {
-        CircularProgressIndicator(modifier = Modifier.size(64.dp))
+private fun LoadingView(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        val loadingContentDescription = stringResource(id = R.string.loading)
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(64.dp)
+                .semantics { contentDescription = loadingContentDescription })
     }
 }
 
 @Composable
-fun CategoriesList(
+private fun CategoriesList(
     modifier: Modifier = Modifier,
     categories: List<Category>,
     onCategoryClicked: (String) -> Unit
@@ -86,7 +101,7 @@ private fun CategoryView(
             Image(
                 painter = painter,
                 contentDescription = category.name,
-                contentScale = ContentScale.Fit,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
             )
             Text(

@@ -4,9 +4,16 @@ plugins {
 }
 
 android {
-    namespace = "com.pouyaa.feature.foryou"
+    namespace = "com.pouyaa.feature.categories"
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 }
 
 dependencies {
     implementation(libs.activity.compose)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.test.manifest)
 }
