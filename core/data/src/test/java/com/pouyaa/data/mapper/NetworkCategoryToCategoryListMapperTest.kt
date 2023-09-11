@@ -24,6 +24,12 @@ class NetworkCategoryToCategoryListMapperTest {
         }
     }
 
+    @Test
+    fun checkMapperMapsEmptyListCorrectly() {
+        val mappedData = mapper.map(emptyList())
+        assert(mappedData.isEmpty())
+    }
+
     private fun createRandomNetworkCategoryList(): List<NetworkCategory> {
         return buildList {
             (1..3).forEach {

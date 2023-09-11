@@ -3,6 +3,7 @@ package com.pouyaa.feature.categories
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
 import com.pouyaa.model.Category
 import org.junit.Rule
 import org.junit.Test
@@ -14,7 +15,10 @@ class CategoriesScreenTest {
     @Test
     fun checkCircularIndicatorOnLoadingState() {
         composeTestRule.setContent {
-            CategoriesScreen(state = CategoriesViewModel.UiState.Loading, onCategoryClicked = {})
+            CategoriesScreen(
+                state = CategoriesViewModel.UiState.Loading,
+                onCategoryClicked = {},
+                onRetryClicked = {})
         }
         composeTestRule.onNodeWithContentDescription(
             composeTestRule.activity.resources.getString(R.string.loading)
@@ -34,8 +38,25 @@ class CategoriesScreenTest {
         composeTestRule.setContent {
             CategoriesScreen(
                 state = CategoriesViewModel.UiState.Success(data = categories),
-                onCategoryClicked = {})
+                onCategoryClicked = {},
+                onRetryClicked = {}
+            )
         }
         composeTestRule.onNodeWithContentDescription(categories.first().name).assertExists()
+    }
+
+    @Test
+    fun checkErrorViewOnErrorState() {
+
+        composeTestRule.setContent {
+            CategoriesScreen(
+                state = CategoriesViewModel.UiState.Failed(message = "test error"),
+                onCategoryClicked = {},
+                onRetryClicked = {}
+            )
+        }
+        composeTestRule.onNodeWithText("test error").assertExists()
+        composeTestRule.onNodeWithText("Retry").assertExists()
+
     }
 }

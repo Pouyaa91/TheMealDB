@@ -1,5 +1,6 @@
 package com.pouyaa.domain
 
+import com.pouyaa.common.result.Result
 import com.pouyaa.data.categories.repository.CategoriesRepository
 import com.pouyaa.domain.usecase.GetCategoriesUseCase
 import com.pouyaa.model.Category
@@ -28,7 +29,7 @@ class GetCategoriesUseCaseTest {
     }
 
     @Test
-    fun checkUseCaseReturnsCorrectly() = runTest {
+    fun checkUseCaseReturnsCorrectlyOnSuccessResult() = runTest {
         val mockCategories = listOf(
             Category(
                 id = "test id",
@@ -38,10 +39,26 @@ class GetCategoriesUseCaseTest {
             )
         )
 
-        coEvery { repository.fetch() } returns flowOf(mockCategories)
+        coEvery { repository.fetch() } returns flowOf(Result.Success(data = mockCategories))
 
-        useCase.fetch().collectLatest { categories ->
+        useCase.fetch().collectLatest { result ->
+            val categories = (result as? Result.Success)?.data
             assertEquals(categories, mockCategories)
+        }
+
+        coVerifySequence {
+            repository.fetch()
+        }
+    }
+
+    @Test
+    fun checkUseCaseReturnCorrectlyOnErrorResult() = runTest {
+
+        coEvery { repository.fetch() } returns flowOf(Result.Error(throwable = Exception("test error")))
+
+        useCase.fetch().collectLatest { result ->
+            val message = (result as? Result.Error)?.throwable?.message
+            assertEquals(message, "test error")
         }
 
         coVerifySequence {

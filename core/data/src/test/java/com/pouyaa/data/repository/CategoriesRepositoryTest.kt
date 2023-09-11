@@ -1,5 +1,6 @@
 package com.pouyaa.data.repository
 
+import com.pouyaa.common.result.Result
 import com.pouyaa.core.network.service.CategoriesApiService
 import com.pouyaa.data.categories.mapper.NetworkCategoryToCategoryListMapper
 import com.pouyaa.data.categories.repository.CategoriesRepositoryImpl
@@ -45,9 +46,10 @@ class CategoriesRepositoryTest {
         coEvery { apiService.getCategories() } returns emptyList()
         coEvery { mapper.map(any()) } returns mappedResult
 
-        repository.fetch().collectLatest { categories ->
-            assertEquals(categories.size, 1)
-            assertEquals(categories.first(), mappedResult.first())
+        repository.fetch().collectLatest { result ->
+            val categories = (result as? Result.Success)?.data
+            assertEquals(categories?.size, 1)
+            assertEquals(categories?.first(), mappedResult.first())
         }
 
         coVerifySequence {
@@ -59,10 +61,11 @@ class CategoriesRepositoryTest {
 
     @Test
     fun checkRepositoryReturnsCorrectlyOnException() = runTest {
-        coEvery { apiService.getCategories() } throws NullPointerException()
+        coEvery { apiService.getCategories() } throws Exception("test error")
 
         repository.fetch().collectLatest {
-            assert(it.isEmpty())
+            val message = (it as? Result.Error)?.throwable?.message
+            assertEquals(message, "test error")
         }
 
         coVerifySequence {
