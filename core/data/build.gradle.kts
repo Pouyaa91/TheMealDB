@@ -11,6 +11,7 @@ android {
 dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:model"))
+    implementation(project(":core:common"))
     implementation(libs.core.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
