@@ -3,7 +3,9 @@ package com.pouyaa.feature.categories
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -38,13 +41,18 @@ internal fun CategoriesRoute(
     viewModel: CategoriesViewModel = hiltViewModel(),
     onCategoryClicked: (String) -> Unit
 ) {
-    CategoriesScreen(state = viewModel.uiState, onCategoryClicked = onCategoryClicked)
+    CategoriesScreen(
+        state = viewModel.uiState,
+        onCategoryClicked = onCategoryClicked,
+        onRetryClicked = viewModel::onRetryClicked
+    )
 }
 
 @Composable
 internal fun CategoriesScreen(
     state: CategoriesViewModel.UiState,
-    onCategoryClicked: (String) -> Unit
+    onCategoryClicked: (String) -> Unit,
+    onRetryClicked: () -> Unit
 ) {
     when (state) {
         is CategoriesViewModel.UiState.Loading -> LoadingView()
@@ -52,6 +60,30 @@ internal fun CategoriesScreen(
             categories = state.data,
             onCategoryClicked = onCategoryClicked
         )
+
+        is CategoriesViewModel.UiState.Failed -> ErrorView(
+            message = state.message,
+            onRetryClicked = onRetryClicked
+        )
+    }
+}
+
+@Composable
+private fun ErrorView(message: String, onRetryClicked: () -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            modifier = modifier,
+            text = message.takeIf(String::isNotEmpty)
+                ?: stringResource(id = R.string.general_error),
+            textAlign = TextAlign.Center
+        )
+        Button(onClick = onRetryClicked) {
+            Text(text = stringResource(id = R.string.retry))
+        }
     }
 }
 

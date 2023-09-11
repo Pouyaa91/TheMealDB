@@ -1,5 +1,6 @@
 package com.pouyaa.data.categories.repository
 
+import com.pouyaa.common.result.Result
 import com.pouyaa.core.network.service.CategoriesApiService
 import com.pouyaa.data.categories.mapper.NetworkCategoryToCategoryListMapper
 import com.pouyaa.model.Category
@@ -12,12 +13,12 @@ class CategoriesRepositoryImpl @Inject constructor(
     private val apiService: CategoriesApiService,
     private val mapper: NetworkCategoryToCategoryListMapper
 ) : CategoriesRepository {
-    override fun fetch(): Flow<List<Category>> {
-        return flow {
+    override fun fetch(): Flow<Result<List<Category>>> {
+        return flow<Result<List<Category>>> {
             val result = apiService.getCategories()
-            emit(mapper.map(result))
+            emit(Result.Success(data = mapper.map(result)))
         }.catch {
-            emit(emptyList())
+            emit(Result.Error(it))
         }
     }
 }
