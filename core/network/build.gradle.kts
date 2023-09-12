@@ -13,7 +13,7 @@ dependencies {
     implementation(libs.moshi.converter)
     implementation(libs.retrofit)
     implementation(libs.moshi.lazy.adapter)
-    implementation(libs.mock.webserver)
+    testImplementation(libs.mock.webserver)
     testImplementation(libs.coroutines.test)
     testImplementation(libs.kotlin.test)
 }
