@@ -1,6 +1,7 @@
 package com.pouyaa.data.repository
 
 import com.pouyaa.common.result.Result
+import com.pouyaa.core.network.model.NetworkCategoriesWrapper
 import com.pouyaa.core.network.service.CategoriesApiService
 import com.pouyaa.data.categories.mapper.NetworkCategoryToCategoryListMapper
 import com.pouyaa.data.categories.repository.CategoriesRepositoryImpl
@@ -43,7 +44,7 @@ class CategoriesRepositoryTest {
                 )
             )
 
-        coEvery { apiService.getCategories() } returns emptyList()
+        coEvery { apiService.getCategories() } returns NetworkCategoriesWrapper(categories = emptyList())
         coEvery { mapper.map(any()) } returns mappedResult
 
         repository.fetch().collectLatest { result ->

@@ -1,15 +1,14 @@
 package com.pouyaa.core.network.di
 
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.pouyaa.core.network.service.CategoriesApiService
-import com.serjltt.moshi.adapters.Wrapped
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module()
@@ -18,18 +17,17 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMoshi(): Moshi =
-        Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .add(Wrapped.ADAPTER_FACTORY)
-            .build()
-
+    fun provideJson(): Json = Json {
+        ignoreUnknownKeys = true
+    }
 
     @Provides
     @Singleton
-    fun provideRetrofit(moshi: Moshi): Retrofit =
+    fun provideRetrofit(json: Json): Retrofit =
         Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(
+                json.asConverterFactory("application/json".toMediaType())
+            )
             .baseUrl("https://www.themealdb.com/api/json/v1/1/")
             .build()
 
