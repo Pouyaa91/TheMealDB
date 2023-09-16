@@ -1,11 +1,9 @@
 package com.pouyaa.core.network.service
 
-import com.pouyaa.core.network.model.NetworkCategory
-import com.serjltt.moshi.adapters.Wrapped
+import com.pouyaa.core.network.model.NetworkCategoriesWrapper
 import retrofit2.http.GET
 
 interface CategoriesApiService {
     @GET("categories.php")
-    @Wrapped(path = ["categories"])
-    suspend fun getCategories(): List<NetworkCategory>
+    suspend fun getCategories(): NetworkCategoriesWrapper
 }

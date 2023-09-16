@@ -1,17 +1,16 @@
 package com.pouyaa.core.network
 
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.pouyaa.core.network.service.CategoriesApiService
-import com.serjltt.moshi.adapters.Wrapped
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
 import kotlin.test.assertEquals
 
@@ -21,14 +20,13 @@ class CategoriesApiServiceTest {
     private lateinit var apiService: CategoriesApiService
     private lateinit var mockWebServer: MockWebServer
 
-    private val moshi: Moshi =
-        Moshi.Builder().add(Wrapped.ADAPTER_FACTORY).add(KotlinJsonAdapterFactory()).build()
+    private val json = Json { ignoreUnknownKeys = true }
 
     @Before
     fun setup() {
         mockWebServer = MockWebServer().apply(MockWebServer::start)
         apiService = Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .baseUrl(mockWebServer.url("/"))
             .build()
             .create(CategoriesApiService::class.java)
@@ -39,13 +37,13 @@ class CategoriesApiServiceTest {
         val mockResponse = File("src/test/resources/categories.json").readText()
 
         mockWebServer.enqueue(MockResponse().setBody(mockResponse))
-        val result = apiService.getCategories()
+        val categories = apiService.getCategories().categories
 
-        assertEquals(result.size, 2)
-        assertEquals(result.getOrNull(0)?.id, "1")
-        assertEquals(result.getOrNull(0)?.name, "first category")
-        assertEquals(result.getOrNull(0)?.imageUrl, "first thumb")
-        assertEquals(result.getOrNull(0)?.description, "first description")
+        assertEquals(categories.size, 2)
+        assertEquals(categories.getOrNull(0)?.id, "1")
+        assertEquals(categories.getOrNull(0)?.name, "first category")
+        assertEquals(categories.getOrNull(0)?.imageUrl, "first thumb")
+        assertEquals(categories.getOrNull(0)?.description, "first description")
     }
 
     @After

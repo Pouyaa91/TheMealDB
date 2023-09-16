@@ -2,6 +2,7 @@
 plugins {
     id("themealdb.android.library")
     id("themealdb.android.hilt")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -9,10 +10,10 @@ android {
 }
 
 dependencies {
-    implementation(libs.moshi.kotlin)
-    implementation(libs.moshi.converter)
     implementation(libs.retrofit)
-    implementation(libs.moshi.lazy.adapter)
+    implementation(libs.kotlin.serialization.json)
+    implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.okhttp.logging)
     testImplementation(libs.mock.webserver)
     testImplementation(libs.coroutines.test)
     testImplementation(libs.kotlin.test)

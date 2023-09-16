@@ -1,12 +1,12 @@
 package com.pouyaa.core.network.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class NetworkCategory(
-    @Json(name = "idCategory") val id: String?,
-    @Json(name = "strCategory") val name: String?,
-    @Json(name = "strCategoryThumb") val imageUrl: String?,
-    @Json(name = "strCategoryDescription") val description: String?
+    @SerialName(value = "idCategory") val id: String?,
+    @SerialName(value = "strCategory") val name: String?,
+    @SerialName(value = "strCategoryThumb") val imageUrl: String?,
+    @SerialName(value = "strCategoryDescription") val description: String?
 )

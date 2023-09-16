@@ -16,7 +16,7 @@ class CategoriesRepositoryImpl @Inject constructor(
     override fun fetch(): Flow<Result<List<Category>>> {
         return flow<Result<List<Category>>> {
             val result = apiService.getCategories()
-            emit(Result.Success(data = mapper.map(result)))
+            emit(Result.Success(data = mapper.map(result.categories)))
         }.catch {
             emit(Result.Error(it))
         }
