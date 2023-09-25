@@ -18,14 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.pouyaa.model.Category
 import com.pouyaa.ui.ErrorView
 import com.pouyaa.ui.LoadingView
+import com.pouyaa.ui.ShimmerAnimationBrush
 
 @Composable
 internal fun CategoriesRoute(
@@ -90,22 +94,37 @@ private fun CategoryView(
         }
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {
-            val painter = rememberAsyncImagePainter(model = category.imageUrl)
+            val painter = rememberAsyncImagePainter(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(category.imageUrl)
+                    .crossfade(200)
+                    .build()
+            )
+
             Image(
                 painter = painter,
                 contentDescription = category.name,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                modifier = modifier.fillMaxSize().run {
+                    if (painter.state !is AsyncImagePainter.State.Success) {
+                        background(brush = ShimmerAnimationBrush())
+                    } else {
+                        this
+                    }
+                }
             )
+
             Text(
                 text = category.name,
                 modifier = Modifier
                     .background(
-                        alpha = 0.9f, brush = Brush.verticalGradient(
-                            listOf(
+                        alpha = 0.9f,
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
                                 Color.Transparent,
                                 MaterialTheme.colorScheme.secondaryContainer
-                            ), endY = 35f
+                            ),
+                            endY = 35f
                         )
                     )
                     .fillMaxWidth()
