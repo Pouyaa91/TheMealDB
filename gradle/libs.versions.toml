@@ -9,7 +9,7 @@ lifecycle-runtime-ktx = "2.6.1"
 androidxComposeCompiler = "1.5.1"
 activity-compose = "1.7.0"
 compose-bom = "2023.03.00"
-hilt = "2.46"
+hilt = "2.48"
 appcompat = "1.6.1"
 material = "1.9.0"
 retrofit = "2.9.0"
@@ -21,6 +21,7 @@ androidxNavigation = "2.5.3"
 kotlinSerializationJson = "1.5.1"
 retrofitKotlinSerializationJson = "1.0.0"
 okhttp = "4.11.0"
+ksp = "1.9.0-1.0.13"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -55,6 +56,7 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "org-jetbrains-kotlin-android" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
@@ -65,6 +67,7 @@ org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.re
 com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 com-android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "org-jetbrains-kotlin-android" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
 
