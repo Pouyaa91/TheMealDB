@@ -29,7 +29,7 @@ import coil.request.ImageRequest
 import com.pouyaa.model.Category
 import com.pouyaa.ui.ErrorView
 import com.pouyaa.ui.LoadingView
-import com.pouyaa.ui.ShimmerAnimationBrush
+import com.pouyaa.ui.ShimmerEffectBrush
 
 @Composable
 internal fun CategoriesRoute(
@@ -106,8 +106,8 @@ private fun CategoryView(
                 contentDescription = category.name,
                 contentScale = ContentScale.Crop,
                 modifier = modifier.fillMaxSize().run {
-                    if (painter.state !is AsyncImagePainter.State.Success) {
-                        background(brush = ShimmerAnimationBrush())
+                    if (painter.state is AsyncImagePainter.State.Loading) {
+                        background(brush = ShimmerEffectBrush())
                     } else {
                         this
                     }

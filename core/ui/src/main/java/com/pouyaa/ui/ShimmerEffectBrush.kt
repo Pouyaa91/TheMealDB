@@ -17,14 +17,14 @@ import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.TileMode
 
 @Composable
-fun ShimmerAnimationBrush(): ShaderBrush {
+fun ShimmerEffectBrush(): ShaderBrush {
     val infiniteTransition = rememberInfiniteTransition(label = "shimmer transition")
 
     val offset by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000, easing = LinearEasing),
+            animation = tween(durationMillis = 1_000, easing = LinearEasing),
         ),
         label = "shimmer offset"
     )
@@ -35,9 +35,9 @@ fun ShimmerAnimationBrush(): ShaderBrush {
                 val heightOffset = size.height * offset
                 return LinearGradientShader(
                     colors = listOf(
-                        Color.Gray.copy(alpha = 0.5f),
-                        Color.Gray.copy(alpha = 0.6f),
-                        Color.Gray.copy(alpha = 0.5f),
+                        Color.LightGray.copy(alpha = 0.4f),
+                        Color.LightGray.copy(alpha = 0.6f),
+                        Color.LightGray.copy(alpha = 0.4f),
                     ),
                     from = Offset(widthOffset, heightOffset),
                     to = Offset(widthOffset + size.width, heightOffset + size.height),
