@@ -94,25 +94,8 @@ private fun CategoryView(
         }
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {
-            val painter = rememberAsyncImagePainter(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(category.imageUrl)
-                    .crossfade(200)
-                    .build()
-            )
 
-            Image(
-                painter = painter,
-                contentDescription = category.name,
-                contentScale = ContentScale.Crop,
-                modifier = modifier.fillMaxSize().run {
-                    if (painter.state is AsyncImagePainter.State.Loading) {
-                        background(brush = ShimmerEffectBrush())
-                    } else {
-                        this
-                    }
-                }
-            )
+            CategoryImageView(categoryName = category.name, imageUrl = category.imageUrl)
 
             Text(
                 text = category.name,
@@ -134,4 +117,31 @@ private fun CategoryView(
             )
         }
     }
+}
+
+@Composable
+private fun CategoryImageView(
+    modifier: Modifier = Modifier,
+    categoryName: String,
+    imageUrl: String
+) {
+    val painter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(imageUrl)
+            .crossfade(200)
+            .build()
+    )
+
+    Image(
+        painter = painter,
+        contentDescription = categoryName,
+        contentScale = ContentScale.Crop,
+        modifier = modifier.fillMaxSize().run {
+            if (painter.state is AsyncImagePainter.State.Loading) {
+                background(brush = ShimmerEffectBrush())
+            } else {
+                padding(16.dp)
+            }
+        }
+    )
 }
