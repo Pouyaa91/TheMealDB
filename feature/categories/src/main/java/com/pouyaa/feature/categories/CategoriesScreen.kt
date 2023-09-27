@@ -3,38 +3,33 @@ package com.pouyaa.feature.categories
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.pouyaa.model.Category
+import com.pouyaa.ui.ErrorView
+import com.pouyaa.ui.LoadingView
+import com.pouyaa.ui.ShimmerEffectBrush
 
 @Composable
 internal fun CategoriesRoute(
@@ -69,36 +64,6 @@ internal fun CategoriesScreen(
 }
 
 @Composable
-private fun ErrorView(message: String, onRetryClicked: () -> Unit, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            modifier = modifier,
-            text = message.takeIf(String::isNotEmpty)
-                ?: stringResource(id = R.string.general_error),
-            textAlign = TextAlign.Center
-        )
-        Button(onClick = onRetryClicked) {
-            Text(text = stringResource(id = R.string.retry))
-        }
-    }
-}
-
-@Composable
-private fun LoadingView(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        val loadingContentDescription = stringResource(id = R.string.loading)
-        CircularProgressIndicator(
-            modifier = Modifier
-                .size(64.dp)
-                .semantics { contentDescription = loadingContentDescription })
-    }
-}
-
-@Composable
 private fun CategoriesList(
     modifier: Modifier = Modifier,
     categories: List<Category>,
@@ -129,22 +94,20 @@ private fun CategoryView(
         }
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {
-            val painter = rememberAsyncImagePainter(model = category.imageUrl)
-            Image(
-                painter = painter,
-                contentDescription = category.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
+
+            CategoryImageView(categoryName = category.name, imageUrl = category.imageUrl)
+
             Text(
                 text = category.name,
                 modifier = Modifier
                     .background(
-                        alpha = 0.9f, brush = Brush.verticalGradient(
-                            listOf(
+                        alpha = 0.9f,
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
                                 Color.Transparent,
                                 MaterialTheme.colorScheme.secondaryContainer
-                            ), endY = 35f
+                            ),
+                            endY = 35f
                         )
                     )
                     .fillMaxWidth()
@@ -154,4 +117,31 @@ private fun CategoryView(
             )
         }
     }
+}
+
+@Composable
+private fun CategoryImageView(
+    modifier: Modifier = Modifier,
+    categoryName: String,
+    imageUrl: String
+) {
+    val painter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(imageUrl)
+            .crossfade(200)
+            .build()
+    )
+
+    Image(
+        painter = painter,
+        contentDescription = categoryName,
+        contentScale = ContentScale.Crop,
+        modifier = modifier.fillMaxSize().run {
+            if (painter.state is AsyncImagePainter.State.Loading) {
+                background(brush = ShimmerEffectBrush())
+            } else {
+                padding(16.dp)
+            }
+        }
+    )
 }

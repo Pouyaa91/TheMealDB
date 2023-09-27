@@ -18,6 +18,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:model"))
                 add("implementation", project(":core:domain"))
                 add("implementation", project(":core:common"))
+                add("implementation", project(":core:ui"))
                 add("implementation", libs.findLibrary("coil.kt").get())
                 add("implementation", libs.findLibrary("coil.kt.compose").get())
                 add("implementation", libs.findLibrary("hilt.navigation.compose").get())
