@@ -5,7 +5,6 @@ plugins {
 
 android {
     namespace = "com.pouyaa.core.ui"
-    compileSdk = 33
 }
 
 dependencies {
