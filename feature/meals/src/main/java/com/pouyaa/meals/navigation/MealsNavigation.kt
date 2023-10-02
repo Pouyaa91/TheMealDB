@@ -8,15 +8,17 @@ import androidx.navigation.navArgument
 import com.pouyaa.meals.MealsRoute
 import com.pouyaa.meals.MealsViewModel
 
-const val mealsNavigationRoute = "meals_route/{${MealsViewModel.MEALS_SCREEN_ARG}}"
+private const val MEALS_ROUTE = "meals_route"
+private const val MEALS_ARGS = "/{${MealsViewModel.MEALS_SCREEN_ARG}}"
+private const val MEALS_NAVIGATION_ROUTE = MEALS_ROUTE + MEALS_ARGS
 
 fun NavController.navigateToMealsScreen(categoryName: String) {
-    navigate("meals_route/$categoryName")
+    navigate("$MEALS_ROUTE/$categoryName")
 }
 
 fun NavGraphBuilder.mealsScreen(onMealClicked: (String) -> Unit) {
     composable(
-        route = mealsNavigationRoute,
+        route = MEALS_NAVIGATION_ROUTE,
         arguments = listOf(
             navArgument(MealsViewModel.MEALS_SCREEN_ARG) { type = NavType.StringType }
         )
