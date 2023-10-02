@@ -90,7 +90,7 @@ private fun CategoryView(
             .padding(8.dp)
             .size(128.dp),
         onClick = {
-            onClicked(category.id)
+            onClicked(category.name)
         }
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {

@@ -5,6 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.pouyaa.feature.categories.navigation.categoriesScreen
+import com.pouyaa.meals.navigation.mealsScreen
+import com.pouyaa.meals.navigation.navigateToMealsScreen
 
 @Composable
 fun TheMealDbNavHost(
@@ -17,8 +19,9 @@ fun TheMealDbNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        categoriesScreen {
-            //TODO implement clicking on categories
+        categoriesScreen(navController::navigateToMealsScreen)
+        mealsScreen {
+            //TODO implement clicking on meal
         }
     }
 }
