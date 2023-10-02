@@ -1,0 +1,14 @@
+{
+  "meals": [
+    {
+      "strMeal": "first meal",
+      "strMealThumb": "first meal image",
+      "idMeal": "first meal id"
+    },
+    {
+      "strMeal": "second meal",
+      "strMealThumb": "second meal image",
+      "idMeal": "second meal id"
+    }
+  ]
+}
