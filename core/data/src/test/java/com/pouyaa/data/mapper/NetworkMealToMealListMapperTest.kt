@@ -1,6 +1,6 @@
 package com.pouyaa.data.mapper
 
-import com.pouyaa.core.network.model.NetworkMeal
+import com.pouyaa.core.network.model.meal.NetworkMeal
 import meals.mapper.NetworkMealToMealListMapper
 import org.junit.Assert.assertEquals
 import org.junit.Test

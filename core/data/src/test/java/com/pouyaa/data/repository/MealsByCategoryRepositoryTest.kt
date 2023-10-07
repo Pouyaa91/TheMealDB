@@ -1,7 +1,7 @@
 package com.pouyaa.data.repository
 
 import com.pouyaa.common.result.Result
-import com.pouyaa.core.network.model.NetworkMealsWrapper
+import com.pouyaa.core.network.model.meal.NetworkMealsWrapper
 import com.pouyaa.core.network.service.MealsApiService
 import com.pouyaa.model.Meal
 import io.mockk.MockKAnnotations

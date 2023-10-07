@@ -1,6 +1,6 @@
 package meals.mapper
 
-import com.pouyaa.core.network.model.NetworkMeal
+import com.pouyaa.core.network.model.meal.NetworkMeal
 import com.pouyaa.model.Meal
 import javax.inject.Inject
 

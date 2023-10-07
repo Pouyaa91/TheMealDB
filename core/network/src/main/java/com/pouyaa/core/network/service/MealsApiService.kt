@@ -1,6 +1,6 @@
 package com.pouyaa.core.network.service
 
-import com.pouyaa.core.network.model.NetworkMealsWrapper
+import com.pouyaa.core.network.model.meal.NetworkMealsWrapper
 import retrofit2.http.GET
 import retrofit2.http.Query
 
