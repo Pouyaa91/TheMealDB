@@ -1,12 +1,11 @@
-package com.pouyaa.feature.categories
+package com.pouyaa.meals
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -15,8 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -26,37 +23,37 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.pouyaa.model.Category
+import com.pouyaa.model.Meal
 import com.pouyaa.ui.ErrorView
 import com.pouyaa.ui.LoadingView
 import com.pouyaa.ui.ShimmerEffectBrush
 
 @Composable
-internal fun CategoriesRoute(
-    viewModel: CategoriesViewModel = hiltViewModel(),
-    onCategoryClicked: (String) -> Unit
+internal fun MealsRoute(
+    viewModel: MealsViewModel = hiltViewModel(),
+    onMealClicked: (String) -> Unit
 ) {
-    CategoriesScreen(
+    MealsScreen(
         state = viewModel.uiState,
-        onCategoryClicked = onCategoryClicked,
+        onMealClicked = onMealClicked,
         onRetryClicked = viewModel::onRetryClicked
     )
 }
 
 @Composable
-internal fun CategoriesScreen(
-    state: CategoriesViewModel.UiState,
-    onCategoryClicked: (String) -> Unit,
+internal fun MealsScreen(
+    state: MealsViewModel.UiState,
+    onMealClicked: (String) -> Unit,
     onRetryClicked: () -> Unit
 ) {
     when (state) {
-        is CategoriesViewModel.UiState.Loading -> LoadingView()
-        is CategoriesViewModel.UiState.Success -> CategoriesList(
-            categories = state.data,
-            onCategoryClicked = onCategoryClicked
+        is MealsViewModel.UiState.Loading -> LoadingView()
+        is MealsViewModel.UiState.Success -> MealsList(
+            meals = state.data,
+            onMealClicked = onMealClicked
         )
 
-        is CategoriesViewModel.UiState.Failed -> ErrorView(
+        is MealsViewModel.UiState.Failed -> ErrorView(
             message = state.message,
             onRetryClicked = onRetryClicked
         )
@@ -64,54 +61,43 @@ internal fun CategoriesScreen(
 }
 
 @Composable
-private fun CategoriesList(
+private fun MealsList(
     modifier: Modifier = Modifier,
-    categories: List<Category>,
-    onCategoryClicked: (String) -> Unit
+    meals: List<Meal>,
+    onMealClicked: (String) -> Unit
 ) {
-    LazyVerticalGrid(modifier = modifier, columns = GridCells.Fixed(2)) {
-        items(categories) { category ->
-            CategoryView(category = category, onClicked = onCategoryClicked)
+    LazyColumn(modifier = modifier) {
+        items(meals) { meal ->
+            MealView(meal = meal, onClicked = onMealClicked)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun CategoryView(
+private fun MealView(
     modifier: Modifier = Modifier,
-    category: Category,
+    meal: Meal,
     onClicked: (String) -> Unit
 ) {
     Surface(
         border = BorderStroke(2.dp, color = MaterialTheme.colorScheme.onSurface),
         shape = RoundedCornerShape(8.dp),
         modifier = modifier
-            .padding(8.dp)
-            .size(128.dp),
+            .padding(8.dp),
         onClick = {
-            onClicked(category.name)
+            onClicked(meal.id)
         }
     ) {
-        Box(contentAlignment = Alignment.BottomCenter) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
 
-            CategoryImageView(categoryName = category.name, imageUrl = category.imageUrl)
+            MealImageView(mealName = meal.name, imageUrl = meal.imageUrl)
 
             Text(
-                text = category.name,
+                text = meal.name,
                 modifier = Modifier
-                    .background(
-                        alpha = 0.9f,
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                MaterialTheme.colorScheme.secondaryContainer
-                            ),
-                            endY = 35f
-                        )
-                    )
-                    .fillMaxWidth()
-                    .padding(8.dp),
+
+                    .fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold
             )
@@ -120,9 +106,9 @@ private fun CategoryView(
 }
 
 @Composable
-private fun CategoryImageView(
+private fun MealImageView(
     modifier: Modifier = Modifier,
-    categoryName: String,
+    mealName: String,
     imageUrl: String
 ) {
     val painter = rememberAsyncImagePainter(
@@ -134,13 +120,13 @@ private fun CategoryImageView(
 
     Image(
         painter = painter,
-        contentDescription = categoryName,
+        contentDescription = mealName,
         contentScale = ContentScale.Crop,
-        modifier = modifier.fillMaxSize().run {
+        modifier = modifier.size(64.dp).run {
             if (painter.state is AsyncImagePainter.State.Loading) {
                 background(brush = ShimmerEffectBrush())
             } else {
-                padding(16.dp)
+                this
             }
         }
     )
