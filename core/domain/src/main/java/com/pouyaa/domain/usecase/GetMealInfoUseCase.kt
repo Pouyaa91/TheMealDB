@@ -9,6 +9,6 @@ import javax.inject.Inject
 class GetMealInfoUseCase @Inject constructor(
     private val mealInfoRepository: MealInfoRepository
 ) {
-    fun fetch(categoryName: String): Flow<Result<Meal>> =
-        mealInfoRepository.fetch(categoryName)
+    fun fetch(id: String): Flow<Result<Meal>> =
+        mealInfoRepository.fetch(id)
 }

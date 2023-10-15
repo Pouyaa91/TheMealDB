@@ -3,6 +3,7 @@ package meals.mapper
 import com.pouyaa.core.network.model.meal.NetworkMeal
 import com.pouyaa.model.Ingredient
 import com.pouyaa.model.Meal
+import java.util.Locale
 import javax.inject.Inject
 
 class NetworkMealToMealListMapper @Inject constructor() {
@@ -48,6 +49,9 @@ class NetworkMealToMealListMapper @Inject constructor() {
 
     private fun createIngredient(name: String?, portion: String?): Ingredient? {
         if (name.isNullOrBlank()) return null
-        return Ingredient(name = name, portion = portion.orEmpty())
+        return Ingredient(
+            name = name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
+            portion = portion.orEmpty()
+        )
     }
 }
