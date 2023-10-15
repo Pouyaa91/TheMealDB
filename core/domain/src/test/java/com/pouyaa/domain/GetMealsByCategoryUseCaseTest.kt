@@ -2,6 +2,7 @@ package com.pouyaa.domain
 
 import com.pouyaa.common.result.Result
 import com.pouyaa.domain.usecase.GetMealsByCategoryUseCase
+import com.pouyaa.model.Ingredient
 import com.pouyaa.model.Meal
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -34,7 +35,12 @@ class GetMealsByCategoryUseCaseTest {
             Meal(
                 id = "test id",
                 name = "test name",
-                imageUrl = "test url"
+                imageUrl = "test url",
+                instructions = "test instructions",
+                category = "test category",
+                nationality = "test nationality",
+                source = "test source",
+                ingredients = listOf(Ingredient(name = "test name", "test portion"))
             )
         )
 

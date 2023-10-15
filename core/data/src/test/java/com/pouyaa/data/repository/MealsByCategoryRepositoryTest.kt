@@ -3,6 +3,7 @@ package com.pouyaa.data.repository
 import com.pouyaa.common.result.Result
 import com.pouyaa.core.network.model.meal.NetworkMealsWrapper
 import com.pouyaa.core.network.service.MealsApiService
+import com.pouyaa.model.Ingredient
 import com.pouyaa.model.Meal
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -39,7 +40,12 @@ class MealsByCategoryRepositoryTest {
                 Meal(
                     id = "1",
                     name = "test name",
-                    imageUrl = "test url"
+                    imageUrl = "test url",
+                    instructions = "test instructions",
+                    category = "test category",
+                    nationality = "test nationality",
+                    source = "test source",
+                    ingredients = listOf(Ingredient(name = "test name", "test portion"))
                 )
             )
 

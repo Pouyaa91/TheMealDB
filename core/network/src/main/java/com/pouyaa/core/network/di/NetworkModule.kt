@@ -2,6 +2,7 @@ package com.pouyaa.core.network.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.pouyaa.core.network.service.CategoriesApiService
+import com.pouyaa.core.network.service.MealInfoApiService
 import com.pouyaa.core.network.service.MealsApiService
 import dagger.Module
 import dagger.Provides
@@ -20,6 +21,7 @@ object NetworkModule {
     @Singleton
     fun provideJson(): Json = Json {
         ignoreUnknownKeys = true
+        explicitNulls = false
     }
 
     @Provides
@@ -41,4 +43,9 @@ object NetworkModule {
     @Singleton
     fun provideMealsApiService(retrofit: Retrofit): MealsApiService =
         retrofit.create(MealsApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMealInfoApiService(retrofit: Retrofit): MealInfoApiService =
+        retrofit.create(MealInfoApiService::class.java)
 }
