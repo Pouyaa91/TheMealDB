@@ -1,7 +1,8 @@
 package com.pouyaa.domain
 
 import com.pouyaa.common.result.Result
-import com.pouyaa.domain.usecase.GetMealsByCategoryUseCase
+import com.pouyaa.data.mealinfo.repository.MealInfoRepository
+import com.pouyaa.domain.usecase.GetMealInfoUseCase
 import com.pouyaa.model.Ingredient
 import com.pouyaa.model.Meal
 import io.mockk.MockKAnnotations
@@ -11,27 +12,26 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
-import meals.repository.MealsByCategoryRepository
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class GetMealsByCategoryUseCaseTest {
+class GetMealInfoUseCaseTest {
 
     @MockK
-    lateinit var repository: MealsByCategoryRepository
+    lateinit var repository: MealInfoRepository
 
-    private lateinit var useCase: GetMealsByCategoryUseCase
+    private lateinit var useCase: GetMealInfoUseCase
 
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-        useCase = GetMealsByCategoryUseCase(repository)
+        useCase = GetMealInfoUseCase(repository)
     }
 
     @Test
     fun checkUseCaseReturnsCorrectlyOnSuccessResult() = runTest {
-        val mockMeals = listOf(
+        val mockMeal =
             Meal(
                 id = "test id",
                 name = "test name",
@@ -42,13 +42,12 @@ class GetMealsByCategoryUseCaseTest {
                 source = "test source",
                 ingredients = listOf(Ingredient(name = "test name", "test portion"))
             )
-        )
 
-        coEvery { repository.fetch(any()) } returns flowOf(Result.Success(data = mockMeals))
+        coEvery { repository.fetch(any()) } returns flowOf(Result.Success(data = mockMeal))
 
         useCase.fetch("").collectLatest { result ->
-            val meals = (result as? Result.Success)?.data
-            assertEquals(meals, mockMeals)
+            val meal = (result as? Result.Success)?.data
+            assertEquals(meal, mockMeal)
         }
 
         coVerifySequence {
