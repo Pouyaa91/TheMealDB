@@ -5,8 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.pouyaa.feature.categories.navigation.categoriesScreen
-import com.pouyaa.mealinfo.navigation.mealInfoScreen
-import com.pouyaa.mealinfo.navigation.navigateToMealInfoScreen
+import com.pouyaa.feature.mealinfo.navigation.mealInfoScreen
+import com.pouyaa.feature.mealinfo.navigation.navigateToMealInfoScreen
 import com.pouyaa.meals.navigation.mealsScreen
 import com.pouyaa.meals.navigation.navigateToMealsScreen
 

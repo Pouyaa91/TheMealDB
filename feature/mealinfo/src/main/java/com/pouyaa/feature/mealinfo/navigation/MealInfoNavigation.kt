@@ -1,12 +1,12 @@
-package com.pouyaa.mealinfo.navigation
+package com.pouyaa.feature.mealinfo.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.pouyaa.mealinfo.MealInfoRoute
-import com.pouyaa.mealinfo.MealInfoViewModel
+import com.pouyaa.feature.mealinfo.MealInfoRoute
+import com.pouyaa.feature.mealinfo.MealInfoViewModel
 
 private const val MEAL_INFO_ROUTE = "meal_info_route"
 private const val MEAL_INFO_ARGS = "/{${MealInfoViewModel.MEAL_INFO_SCREEN_ARG}}"

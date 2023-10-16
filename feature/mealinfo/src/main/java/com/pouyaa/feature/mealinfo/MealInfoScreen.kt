@@ -1,4 +1,4 @@
-package com.pouyaa.mealinfo
+package com.pouyaa.feature.mealinfo
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
@@ -36,7 +36,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.pouyaa.feature.mealinfo.R
 import com.pouyaa.model.Ingredient
 import com.pouyaa.model.Meal
 import com.pouyaa.ui.ErrorView
