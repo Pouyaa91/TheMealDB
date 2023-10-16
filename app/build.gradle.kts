@@ -53,6 +53,8 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation(project(":feature:categories:"))
+    implementation(project(":feature:meals:"))
+    implementation(project(":feature:mealinfo:"))
     implementation(libs.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
 }

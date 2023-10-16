@@ -1,7 +1,7 @@
 package com.pouyaa.data.repository
 
 import com.pouyaa.common.result.Result
-import com.pouyaa.core.network.model.NetworkCategoriesWrapper
+import com.pouyaa.core.network.model.category.NetworkCategoriesWrapper
 import com.pouyaa.core.network.service.CategoriesApiService
 import com.pouyaa.data.categories.mapper.NetworkCategoryToCategoryListMapper
 import com.pouyaa.data.categories.repository.CategoriesRepositoryImpl
