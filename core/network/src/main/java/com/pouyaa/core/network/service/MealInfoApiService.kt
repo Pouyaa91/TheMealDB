@@ -4,8 +4,8 @@ import com.pouyaa.core.network.model.meal.NetworkMealsWrapper
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MealsApiService {
+interface MealInfoApiService {
 
-    @GET("filter.php")
-    suspend fun getMealsByCategory(@Query("c") categoryName: String): NetworkMealsWrapper
+    @GET("lookup.php")
+    suspend fun getMealInfo(@Query("i") id: String): NetworkMealsWrapper
 }

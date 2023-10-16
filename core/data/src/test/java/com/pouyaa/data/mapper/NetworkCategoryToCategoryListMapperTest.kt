@@ -1,6 +1,6 @@
 package com.pouyaa.data.mapper
 
-import com.pouyaa.core.network.model.NetworkCategory
+import com.pouyaa.core.network.model.category.NetworkCategory
 import com.pouyaa.data.categories.mapper.NetworkCategoryToCategoryListMapper
 import org.junit.Assert.assertEquals
 import org.junit.Test

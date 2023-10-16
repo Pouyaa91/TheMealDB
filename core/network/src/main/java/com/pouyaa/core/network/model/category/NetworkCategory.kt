@@ -1,4 +1,4 @@
-package com.pouyaa.core.network.model
+package com.pouyaa.core.network.model.category
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

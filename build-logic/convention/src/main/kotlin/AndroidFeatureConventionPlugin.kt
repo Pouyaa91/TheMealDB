@@ -25,6 +25,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("lifecycle.runtimeCompose").get())
                 add("implementation", libs.findLibrary("lifecycle.viewModelCompose").get())
                 add("implementation", libs.findLibrary("material3").get())
+                add("implementation", libs.findLibrary("material.icons.extended").get())
 
             }
         }

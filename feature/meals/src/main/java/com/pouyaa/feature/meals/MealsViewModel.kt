@@ -1,4 +1,4 @@
-package com.pouyaa.meals
+package com.pouyaa.feature.meals
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

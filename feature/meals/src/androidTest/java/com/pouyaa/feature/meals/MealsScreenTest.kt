@@ -1,9 +1,10 @@
-package com.pouyaa.meals
+package com.pouyaa.feature.meals
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import com.pouyaa.model.Ingredient
 import com.pouyaa.model.Meal
 import org.junit.Rule
 import org.junit.Test
@@ -25,12 +26,17 @@ class MealsScreenTest {
     }
 
     @Test
-    fun checkCategoryListOnSuccessState() {
+    fun checkMealListOnSuccessState() {
         val meals = listOf(
             Meal(
                 id = "0",
                 name = "sample name",
-                imageUrl = "url"
+                imageUrl = "url",
+                source = "sample source",
+                nationality = "sample nationality",
+                category = "sample category",
+                instructions = "sample instruction",
+                ingredients = listOf(Ingredient(name = "sample ingredient", "sample portion"))
             )
         )
         composeTestRule.setContent {

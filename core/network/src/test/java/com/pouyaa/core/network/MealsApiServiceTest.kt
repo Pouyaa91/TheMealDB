@@ -20,7 +20,10 @@ class MealsApiServiceTest {
     private lateinit var apiService: MealsApiService
     private lateinit var mockWebServer: MockWebServer
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json {
+        ignoreUnknownKeys = true
+        explicitNulls = false
+    }
 
     @Before
     fun setup() {
@@ -37,12 +40,12 @@ class MealsApiServiceTest {
         val mockResponse = File("src/test/resources/meals.json").readText()
 
         mockWebServer.enqueue(MockResponse().setBody(mockResponse))
-        val categories = apiService.getMealsByCategory("").mealsList
+        val meals = apiService.getMealsByCategory("").mealsList
 
-        assertEquals(categories.size, 2)
-        assertEquals(categories.getOrNull(0)?.id, "first meal id")
-        assertEquals(categories.getOrNull(0)?.name, "first meal")
-        assertEquals(categories.getOrNull(0)?.imageUrl, "first meal image")
+        assertEquals(meals.size, 2)
+        assertEquals(meals.firstOrNull()?.id, "first meal id")
+        assertEquals(meals.firstOrNull()?.name, "first meal")
+        assertEquals(meals.firstOrNull()?.imageUrl, "first meal image")
     }
 
     @After

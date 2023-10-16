@@ -2,7 +2,9 @@ package com.pouyaa.data.repository
 
 import com.pouyaa.common.result.Result
 import com.pouyaa.core.network.model.meal.NetworkMealsWrapper
-import com.pouyaa.core.network.service.MealsApiService
+import com.pouyaa.core.network.service.MealInfoApiService
+import com.pouyaa.data.mealinfo.repository.MealInfoRepository
+import com.pouyaa.data.mealinfo.repository.MealInfoRepositoryImpl
 import com.pouyaa.model.Ingredient
 import com.pouyaa.model.Meal
 import io.mockk.MockKAnnotations
@@ -12,25 +14,24 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.test.runTest
 import meals.mapper.NetworkMealToMealListMapper
-import meals.repository.MealsByCategoryRepositoryImpl
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class MealsByCategoryRepositoryTest {
+class MealInfoRepositoryTest {
 
     @MockK
     lateinit var mapper: NetworkMealToMealListMapper
 
     @MockK
-    lateinit var apiService: MealsApiService
+    lateinit var apiService: MealInfoApiService
 
-    private lateinit var repository: MealsByCategoryRepositoryImpl
+    private lateinit var repository: MealInfoRepository
 
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-        repository = MealsByCategoryRepositoryImpl(apiService, mapper)
+        repository = MealInfoRepositoryImpl(apiService, mapper)
     }
 
     @Test
@@ -49,17 +50,16 @@ class MealsByCategoryRepositoryTest {
                 )
             )
 
-        coEvery { apiService.getMealsByCategory(any()) } returns NetworkMealsWrapper(mealsList = emptyList())
+        coEvery { apiService.getMealInfo(any()) } returns NetworkMealsWrapper(mealsList = emptyList())
         coEvery { mapper.map(any()) } returns mappedResult
 
         repository.fetch("").collectLatest { result ->
-            val meals = (result as? Result.Success)?.data
-            assertEquals(meals?.size, 1)
-            assertEquals(meals?.first(), mappedResult.first())
+            val meal = (result as? Result.Success)?.data
+            assertEquals(meal, mappedResult.first())
         }
 
         coVerifySequence {
-            apiService.getMealsByCategory(any())
+            apiService.getMealInfo(any())
             mapper.map(any())
         }
     }
@@ -67,7 +67,7 @@ class MealsByCategoryRepositoryTest {
 
     @Test
     fun checkRepositoryReturnsCorrectlyOnException() = runTest {
-        coEvery { apiService.getMealsByCategory(any()) } throws Exception("test error")
+        coEvery { apiService.getMealInfo(any()) } throws Exception("test error")
 
         repository.fetch("").collectLatest {
             val message = (it as? Result.Error)?.throwable?.message
@@ -75,7 +75,7 @@ class MealsByCategoryRepositoryTest {
         }
 
         coVerifySequence {
-            apiService.getMealsByCategory(any())
+            apiService.getMealInfo(any())
         }
     }
 
