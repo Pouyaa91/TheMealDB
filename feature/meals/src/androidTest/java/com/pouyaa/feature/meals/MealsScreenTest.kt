@@ -1,4 +1,4 @@
-package com.pouyaa.meals
+package com.pouyaa.feature.meals
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule

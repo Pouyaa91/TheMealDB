@@ -1,4 +1,4 @@
-package com.pouyaa.meals
+package com.pouyaa.feature.meals
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
