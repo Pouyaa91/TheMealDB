@@ -1,7 +1,5 @@
 package com.pouyaa.feature.meals
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -120,19 +118,18 @@ private fun MealImageView(
             .build()
     )
 
-    val isLoading = painter.state is AsyncImagePainter.State.Loading
-    val backgroundAlpha by animateFloatAsState(
-        targetValue = if (isLoading) 1f else 0f,
-        label = "Shimmer alpha",
-        animationSpec = tween(200)
-    )
-
     Image(
         painter = painter,
         contentDescription = mealName,
         contentScale = ContentScale.Crop,
         modifier = modifier
             .size(64.dp)
-            .background(brush = ShimmerEffectBrush(), alpha = backgroundAlpha)
+            .run {
+                if (painter.state is AsyncImagePainter.State.Loading) {
+                    background(brush = ShimmerEffectBrush())
+                } else {
+                    this
+                }
+            }
     )
 }

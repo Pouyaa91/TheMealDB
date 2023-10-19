@@ -2,8 +2,6 @@ package com.pouyaa.feature.mealinfo
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -95,20 +93,19 @@ private fun MealImageView(
             .build()
     )
 
-    val isLoading = painter.state is AsyncImagePainter.State.Loading
-    val backgroundAlpha by animateFloatAsState(
-        targetValue = if (isLoading) 1f else 0f,
-        label = "Shimmer alpha",
-        animationSpec = tween(200)
-    )
-
     Image(
         painter = painter,
         contentDescription = mealName,
         contentScale = ContentScale.Crop,
         modifier = modifier
             .aspectRatio(16 / 9f)
-            .background(brush = ShimmerEffectBrush(), alpha = backgroundAlpha)
+            .run {
+                if (painter.state is AsyncImagePainter.State.Loading) {
+                    background(brush = ShimmerEffectBrush())
+                } else {
+                    this
+                }
+            }
     )
 }
 
