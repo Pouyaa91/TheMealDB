@@ -162,7 +162,9 @@ fun ExpandableSection(
 
 @Composable
 fun ExpandableSectionTitle(modifier: Modifier = Modifier, isExpanded: Boolean, title: String) {
+
     val icon = if (isExpanded) Icons.Rounded.KeyboardArrowUp else Icons.Rounded.KeyboardArrowDown
+
     Row(modifier = modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
         Image(
             modifier = Modifier.size(32.dp),
