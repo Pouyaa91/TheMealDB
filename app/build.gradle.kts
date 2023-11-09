@@ -3,6 +3,8 @@ plugins {
     id("themealdb.android.application")
     id("themealdb.android.application.compose")
     id("themealdb.android.hilt")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -57,4 +59,7 @@ dependencies {
     implementation(project(":feature:mealinfo:"))
     implementation(libs.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 }

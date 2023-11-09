@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "94518646455",
+    "project_id": "themealdb-1443c",
+    "storage_bucket": "themealdb-1443c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94518646455:android:97329f7a9d9d6176fb1f32",
+        "android_client_info": {
+          "package_name": "com.pouyaa.themealdb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKooPEPW62cFrmkEXMw3o3wOa-a3aHyXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

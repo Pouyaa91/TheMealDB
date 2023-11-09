@@ -22,6 +22,9 @@ kotlinSerializationJson = "1.5.1"
 retrofitKotlinSerializationJson = "1.0.0"
 okhttp = "4.11.0"
 ksp = "1.9.0-1.0.13"
+google-services = "4.4.0"
+firebase-bom = "32.5.0"
+firebase-crashlytics = "2.9.9"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -61,6 +64,9 @@ ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devto
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
@@ -69,6 +75,8 @@ com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", versio
 com-android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "org-jetbrains-kotlin-android" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
 
 [bundles]
 
