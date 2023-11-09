@@ -6,3 +6,4 @@ This project is using the API provided by [themealdb.com](https://www.themealdb.
 ## Articles Related to This Codebase
 - [Testing JSON-to-Kotlin Parsing with MockWebServer in Android](https://medium.com/@mazloumpour.pouya/testing-json-to-kotlin-parsing-with-mockwebserver-in-android-2a04ea3c49a1)
 - [From Blank to Beautiful: Implementing Shimmer Effect in Compose](https://medium.com/@mazloumpour.pouya/from-blank-to-beautiful-implementing-shimmer-effect-in-compose-909c151310f1)
+- [Creating Expandable Sections with Compose](https://medium.com/@mazloumpour.pouya/creating-expandable-sections-with-compose-c0e827fb6910)
