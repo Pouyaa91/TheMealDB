@@ -10,6 +10,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             pluginManager.apply {
                 apply("themealdb.android.library")
                 apply("themealdb.android.hilt")
+                apply("kotlinx-serialization")
             }
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -26,6 +27,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("lifecycle.viewModelCompose").get())
                 add("implementation", libs.findLibrary("material3").get())
                 add("implementation", libs.findLibrary("material.icons.extended").get())
+                add("implementation", libs.findLibrary("kotlin.serialization.json").get())
+                add("implementation", libs.findLibrary("androidx.navigation.compose").get())
 
             }
         }

@@ -3,13 +3,13 @@ package com.pouyaa.feature.categories.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.pouyaa.feature.categories.CategoriesRoute
+import kotlinx.serialization.Serializable
 
-const val categoriesNavigationRoute = "categories_route"
+@Serializable
+object Categories
 
 fun NavGraphBuilder.categoriesScreen(onCategoryClicked: (String) -> Unit) {
-    composable(
-        route = categoriesNavigationRoute
-    ) {
+    composable<Categories> {
         CategoriesRoute(onCategoryClicked = onCategoryClicked)
     }
 }

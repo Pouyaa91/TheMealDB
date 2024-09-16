@@ -6,8 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.pouyaa.common.result.Result
 import com.pouyaa.domain.usecase.GetMealsByCategoryUseCase
+import com.pouyaa.feature.meals.navigation.Meals
 import com.pouyaa.model.Meal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -27,7 +29,7 @@ class MealsViewModel @Inject constructor(
     }
 
     private fun fetchMealsByCategory() {
-        val categoryName = savedStateHandle.get<String>(MEALS_SCREEN_ARG).orEmpty()
+        val categoryName = savedStateHandle.toRoute<Meals>().category
         viewModelScope.launch {
             uiState = UiState.Loading
             getMealsByCategoryUseCase.fetch(categoryName).collectLatest(::handleMealsResult)
@@ -49,9 +51,5 @@ class MealsViewModel @Inject constructor(
         data object Loading : UiState
         data class Success(val data: List<Meal>) : UiState
         data class Failed(val message: String) : UiState
-    }
-
-    companion object {
-        const val MEALS_SCREEN_ARG = "meals_screen_arg"
     }
 }

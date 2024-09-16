@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.pouyaa.feature.categories.navigation.categoriesNavigationRoute
 import com.pouyaa.themealdb.navigation.TheMealDbNavHost
 import com.pouyaa.themealdb.ui.theme.TheMealDBTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +25,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     TheMealDbNavHost(
                         navController = navController,
-                        startDestination = categoriesNavigationRoute,
                         modifier = Modifier.fillMaxSize()
                     )
                 }
